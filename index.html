@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frog English Subject Drill 500</title>
+<meta name="theme-color" content="#142b46">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Subject Drill">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root {
+    --bg:#f3ecdf;
+    --paper:#fffaf0;
+    --paper2:#fbf3e6;
+    --ink:#1f2530;
+    --muted:#746956;
+    --line:#d8c6a6;
+    --line2:#b89a64;
+    --navy:#142b46;
+    --navy2:#1f4668;
+    --oxblood:#74312f;
+    --brass:#b58a42;
+    --sage:#dfe8df;
+    --shadow:0 10px 26px rgba(20,43,70,.10), 0 1px 0 rgba(255,255,255,.80) inset;
+    --radius:16px;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; min-height:100%; background:var(--bg); color:var(--ink);
+    font-family:"Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif; }
+  body {
+    padding-bottom: calc(22px + env(safe-area-inset-bottom));
+    background:
+      linear-gradient(90deg, rgba(20,43,70,.030) 1px, transparent 1px),
+      linear-gradient(180deg, #f6efe4 0%, #efe4d2 100%);
+    background-size:18px 18px, auto;
+  }
+  .top {
+    position:sticky; top:0; z-index:20;
+    padding: calc(8px + env(safe-area-inset-top)) 10px 9px;
+    background:linear-gradient(180deg, rgba(244,236,222,.98), rgba(244,236,222,.94));
+    backdrop-filter: blur(12px);
+    border-bottom:1px solid rgba(184,154,100,.55);
+    box-shadow:0 8px 24px rgba(20,43,70,.08);
+  }
+  .titlebar {
+    display:flex; align-items:flex-end; justify-content:space-between; gap:8px;
+    max-width:780px; margin:0 auto 7px;
+  }
+  h1 {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:17px; margin:0; letter-spacing:.035em; font-weight:700; color:var(--navy);
+    text-shadow:0 1px 0 rgba(255,255,255,.75);
+  }
+  h1::before { content:"✦ "; color:var(--brass); font-size:14px; }
+  .counter {
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:11px; color:var(--muted); white-space:nowrap;
+    border:1px solid rgba(184,154,100,.50); border-radius:999px; padding:3px 8px; background:rgba(255,250,240,.70);
+  }
+  .tabs {
+    max-width:780px; margin:0 auto 8px; display:flex; gap:6px;
+    overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;
+  }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab {
+    flex:0 0 auto; border:1px solid rgba(184,154,100,.62); background:rgba(255,250,240,.88); color:#4b412f;
+    border-radius:999px; padding:7px 9px; font-weight:800; font-size:11px;
+    box-shadow:0 2px 8px rgba(54,43,25,.045);
+  }
+  .tab.active {
+    background:linear-gradient(180deg,var(--navy2),var(--navy));
+    border-color:var(--navy); color:#fff7e9;
+    box-shadow:0 3px 12px rgba(20,43,70,.20);
+  }
+  .controls {
+    max-width:780px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:8px;
+  }
+  .ctrl {
+    border:1px solid rgba(184,154,100,.62); background:var(--paper); color:var(--ink);
+    padding:9px 8px; border-radius:13px; font-size:12.5px; font-weight:800;
+    box-shadow:0 3px 10px rgba(54,43,25,.055);
+  }
+  .ctrl.active {
+    background:linear-gradient(180deg,#f8f0df,#eadbbd);
+    border-color:var(--brass); color:#382a16;
+  }
+  .hint {
+    max-width:780px; margin:8px auto 0; color:var(--muted); font-size:10.8px; line-height:1.45;
+  }
+  .wrap { max-width:780px; margin:10px auto 0; padding:0 8px; }
+  .cards { display:flex; flex-direction:column; gap:8px; }
+  .card {
+    position:relative; display:grid; grid-template-columns:38px minmax(0,1fr);
+    align-items:stretch; min-height:60px;
+    background:
+      linear-gradient(180deg, rgba(255,250,240,.98), rgba(250,243,230,.98));
+    border:1px solid rgba(184,154,100,.64); border-radius:18px;
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .card::before {
+    content:""; position:absolute; inset:0 auto 0 0; width:3px;
+    background:linear-gradient(180deg,var(--navy),var(--oxblood)); opacity:.86;
+  }
+  .hold {
+    appearance:none; border:0; border-right:1px solid rgba(184,154,100,.46);
+    background:linear-gradient(180deg,#f4ead7,#e5d1ab);
+    display:flex; align-items:center; justify-content:center;
+    color:transparent; font-size:0; font-weight:800;
+    touch-action:none; user-select:none; -webkit-user-select:none;
+    padding:0; position:relative;
+  }
+  .hold::before {
+    content:""; width:20px; height:20px; border-radius:50%;
+    background:
+      radial-gradient(circle at 35% 32%, #fff8e7 0 20%, #d9bd82 22% 44%, #8e6428 46% 100%);
+    border:1px solid rgba(66,47,23,.46);
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset, 0 2px 5px rgba(20,43,70,.22), 0 0 0 3px rgba(181,138,66,.12);
+  }
+  .hold::after {
+    content:""; position:absolute; width:9px; height:9px; border-radius:50%;
+    border:1px solid rgba(20,43,70,.36); background:rgba(255,250,240,.42);
+  }
+  .hold:active, .hold.on { background:linear-gradient(180deg,#dec99b,#c6a15f); }
+  .hold:active::before, .hold.on::before {
+    background:radial-gradient(circle at 36% 32%, #fffdf0 0 18%, #ead7a7 20% 42%, #17314e 44% 100%);
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset, 0 0 0 4px rgba(20,43,70,.16), 0 3px 8px rgba(20,43,70,.28);
+  }
+  .content {
+    position:relative; min-width:0; padding:6px 8px 6px 9px;
+  }
+  .meta {
+    font-size:9.7px; line-height:1.1; color:var(--muted); letter-spacing:.035em;
+    display:flex; gap:5px; align-items:center; white-space:nowrap;
+  }
+  .badge {
+    display:inline-flex; align-items:center; justify-content:center;
+    min-width:28px; padding:2px 5px; border-radius:999px;
+    background:#ecf1ee; color:var(--navy2);
+    border:1px solid rgba(20,43,70,.13);
+    font-weight:900; font-variant-numeric:tabular-nums;
+  }
+  .jp {
+    margin-top:4px;
+    font-size:clamp(10.1px, 2.58vw, 12.1px);
+    line-height:1.23; font-weight:760; letter-spacing:-.06em;
+    font-feature-settings:"palt" 1;
+    white-space:normal; overflow:visible;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    word-break:keep-all; overflow-wrap:anywhere;
+  }
+
+  .bracket {
+    color:#74312f;
+    background:linear-gradient(180deg, rgba(181,138,66,.18), rgba(181,138,66,.08));
+    border-radius:5px;
+    padding:0 .08em;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+
+  .en {
+    display:none; margin-top:5px; padding:6px 8px; border-radius:11px;
+    background:linear-gradient(180deg,#fbf4e8,#efe0c3); border:1px solid rgba(184,154,100,.52); color:#17314e;
+    font-family:"Avenir Next Condensed","HelveticaNeue-CondensedBold","Arial Narrow",Georgia,"Times New Roman",serif;
+    font-size:clamp(8.9px, 2.05vw, 10.5px); line-height:1.24; font-weight:760; letter-spacing:-.018em;
+    white-space:normal; overflow:visible; text-overflow:clip; word-break:normal; overflow-wrap:anywhere;
+  }
+  .card.reveal .en { display:block; }
+  .zones {
+    position:absolute; inset:0 0 0 38px; display:grid; grid-template-columns:1fr 1fr 1fr;
+    pointer-events:none;
+  }
+  .zone {
+    pointer-events:auto; border:0; background:transparent; padding:0; min-width:0;
+    touch-action:manipulation;
+  }
+  .zone:active { background:rgba(20,43,70,.075); }
+  .voiceflash {
+    position:fixed; left:50%; bottom:calc(14px + env(safe-area-inset-bottom)); transform:translateX(-50%) translateY(18px);
+    opacity:0; pointer-events:none; z-index:50;
+    background:linear-gradient(180deg,var(--navy2),var(--navy)); color:#fff7e9; padding:9px 13px; border-radius:999px; font-size:12px; font-weight:800;
+    box-shadow:0 8px 24px rgba(0,0,0,.22); transition:.18s ease;
+  }
+  .voiceflash.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .empty { color:var(--muted); padding:30px 12px; text-align:center; }
+  @media (min-width:700px) {
+    .cards { display:grid; grid-template-columns:1fr 1fr; }
+    .card { min-height:62px; }
+  }
+  @media (max-width:380px) {
+    .top { padding-left:7px; padding-right:7px; }
+    .wrap { padding-left:6px; padding-right:6px; }
+    .card { grid-template-columns:36px minmax(0,1fr); }
+    .zones { inset-left:36px; }
+    .content { padding-left:8px; padding-right:6px; }
+    .jp { font-size:9.8px; line-height:1.22; }
+    .en { font-size:8.7px; line-height:1.22; }
+    .hold::before { width:19px; height:19px; }
+    .meta { font-size:9.2px; }
+    .badge { min-width:26px; padding:2px 4px; }
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="titlebar">
+      <h1>Westminster Subject Drill</h1>
+      <div class="counter" id="counter">1–50 / 500</div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="controls">
+      <button class="ctrl active" id="ascBtn" type="button">昇順配置</button>
+      <button class="ctrl" id="randBtn" type="button">ランダム配置</button>
+    </div>
+    <div class="hint">左の○を押している間だけ英語を表示。カード本文の左/中央/右で UK男性優先 / India男性優先 / US 音声を再生します。</div>
+  </div>
+  <main class="wrap">
+    <section class="cards" id="cards"></section>
+  </main>
+  <div class="voiceflash" id="voiceflash">en-GB</div>
+<script id="drill-data" type="application/json">[{"id":1,"tag":"直前完了","jp":"あなたが［先ほどのメールで］共有してくれた最新情報が、","en":"The update you’ve just shared in your earlier email"},{"id":2,"tag":"過去","jp":"あなたが［昨日の打合せで］説明してくれた業務フローが、","en":"The workflow you explained in yesterday’s meeting"},{"id":3,"tag":"現在完了","jp":"あなたが［ここまでのやり取りで］整理してくれた論点が、","en":"The issues you’ve organised throughout our discussion so far"},{"id":4,"tag":"過去","jp":"あなたが［法務部との確認後に］修正した契約条項が、","en":"The contract clause you revised after checking with Legal"},{"id":5,"tag":"現在完了","jp":"あなたが［経営陣向けに］まとめてくれた要点が、","en":"The key points you’ve summarised for senior management"},{"id":6,"tag":"過去","jp":"あなたが［更新版の見積書に合わせて］共有した契約条件が、","en":"The contract terms you shared alongside the revised quotation"},{"id":7,"tag":"現在完了","jp":"あなたが［月次レビューで使うために］設計してくれた管理表が、","en":"The control sheet you’ve designed for the monthly review"},{"id":8,"tag":"過去","jp":"あなたが［今朝の確認後に］訂正した売上数値が、","en":"The sales figures you corrected after this morning’s check"},{"id":9,"tag":"現在完了","jp":"あなたが［監査対応用に］整理してくれた証跡が、","en":"The audit trail you’ve organised for the audit response"},{"id":10,"tag":"過去","jp":"あなたが［顧客への説明用に］作成した要約が、","en":"The summary you prepared for the client explanation"},{"id":11,"tag":"現在完了","jp":"あなたが［営業部からの依頼を受けて］追加した確認項目が、","en":"The check item you’ve added following the request from Sales"},{"id":12,"tag":"過去","jp":"あなたが［財務部と確認したうえで］変更した支払条件が、","en":"The payment terms you changed after checking with Finance"},{"id":13,"tag":"現在完了","jp":"あなたが［リスク管理の観点から］優先順位づけした案件が、","en":"The cases you’ve prioritised from a risk management perspective"},{"id":14,"tag":"過去","jp":"あなたが［取引先との協議後に］調整した納期が、","en":"The delivery date you adjusted after discussing it with the supplier"},{"id":15,"tag":"現在完了","jp":"あなたが［社内共有用に］標準化してくれたフォーマットが、","en":"The format you’ve standardised for internal sharing"},{"id":16,"tag":"過去","jp":"あなたが［会議の最後に］提起した懸念点が、","en":"The concern you raised at the end of the meeting"},{"id":17,"tag":"現在完了","jp":"あなたが［これまでの回答から］抽出してくれた要件が、","en":"The requirements you’ve extracted from the answers so far"},{"id":18,"tag":"過去","jp":"あなたが［顧客ヒアリングの後に］更新した課題一覧が、","en":"The issue list you updated after the client interview"},{"id":19,"tag":"現在完了","jp":"あなたが［社内ルールに照らして］確認してくれた対応方針が、","en":"The response plan you’ve checked against internal rules"},{"id":20,"tag":"過去","jp":"あなたが［提出前に］見直した申請書が、","en":"The application form you reviewed before submission"},{"id":21,"tag":"直前完了","jp":"あなたが［今送ってくれたばかりの］改訂版が、","en":"The revised version you’ve just sent me"},{"id":22,"tag":"過去","jp":"あなたが［前回の定例会で］説明した予算差異が、","en":"The budget variance you explained in the previous regular meeting"},{"id":23,"tag":"現在完了","jp":"あなたが［ここ数回の報告で］一貫して強調してきたリスクが、","en":"The risk you’ve consistently highlighted in the last few reports"},{"id":24,"tag":"過去","jp":"あなたが［調査結果に基づいて］修正した見通しが、","en":"The outlook you revised based on the research findings"},{"id":25,"tag":"現在完了","jp":"あなたが［管理職向けに］言い換えてくれた説明文が、","en":"The explanation you’ve rephrased for managers"},{"id":26,"tag":"過去","jp":"あなたが［現場担当者に確認してから］更新した手順書が、","en":"The procedure manual you updated after checking with the frontline staff"},{"id":27,"tag":"現在完了","jp":"あなたが［問い合わせ削減のために］改善してくれた案内文が、","en":"The guidance text you’ve improved to reduce enquiries"},{"id":28,"tag":"過去","jp":"あなたが［クライアントの要望を踏まえて］追加した機能要件が、","en":"The functional requirement you added in response to the client’s request"},{"id":29,"tag":"現在完了","jp":"あなたが［期限順に］並べ替えてくれた対応事項が、","en":"The action items you’ve arranged by deadline"},{"id":30,"tag":"過去","jp":"あなたが［重複を確認したうえで］整理した顧客リストが、","en":"The client list you cleaned after checking for duplicates"},{"id":31,"tag":"現在完了","jp":"あなたが［週次報告に入れるために］加工してくれたデータが、","en":"The data you’ve processed for the weekly report"},{"id":32,"tag":"過去","jp":"あなたが［監査人からの質問に備えて］抽出した取引履歴が、","en":"The transaction history you extracted for the auditors’ questions"},{"id":33,"tag":"現在完了","jp":"あなたが［承認フローに合わせて］修正した申請内容が、","en":"The application details you’ve amended to fit the approval flow"},{"id":34,"tag":"過去","jp":"あなたが［法務レビューを受けて］削除した文言が、","en":"The wording you removed after the Legal review"},{"id":35,"tag":"現在完了","jp":"あなたが［社内ポリシーに合わせて］調整した表現が、","en":"The wording you’ve adjusted to match internal policy"},{"id":36,"tag":"過去","jp":"あなたが［見積額と］照合して確認した請求金額が、","en":"The invoice amount you checked against the quotation"},{"id":37,"tag":"現在完了","jp":"あなたが［前年実績と］比較して見直してくれた売上予測が、","en":"The sales forecast you’ve reviewed against last year’s results"},{"id":38,"tag":"過去","jp":"あなたが［競合価格を確認したうえで］設定した価格案が、","en":"The pricing proposal you set after checking competitor prices"},{"id":39,"tag":"現在完了","jp":"あなたが［顧客区分ごとに］分類してくれた案件一覧が、","en":"The case list you’ve categorised by client segment"},{"id":40,"tag":"過去","jp":"あなたが［地域別に］整理した販売実績が、","en":"The sales results you organised by region"},{"id":41,"tag":"現在完了","jp":"あなたが［月末締めに向けて］確定してくれた処理スケジュールが、","en":"The processing schedule you’ve finalised for month-end closing"},{"id":42,"tag":"過去","jp":"あなたが［例外処理として］登録した申請が、","en":"The application you registered as an exception"},{"id":43,"tag":"現在完了","jp":"あなたが［標準手順に沿って］処理してくれた依頼が、","en":"The request you’ve processed in line with standard procedure"},{"id":44,"tag":"過去","jp":"あなたが［緊急度を見て］エスカレーションした案件が、","en":"The case you escalated after assessing its urgency"},{"id":45,"tag":"現在完了","jp":"あなたが［関係部署と調整して］まとめてくれた対応案が、","en":"The response plan you’ve prepared after coordinating with the relevant departments"},{"id":46,"tag":"過去","jp":"あなたが［プロジェクト開始時に］設定した前提条件が、","en":"The assumptions you set at the start of the project"},{"id":47,"tag":"現在完了","jp":"あなたが［最新の条件に合わせて］見直した前提条件が、","en":"The assumptions you’ve reviewed against the latest conditions"},{"id":48,"tag":"過去","jp":"あなたが［関係者からの意見を踏まえて］修正した提案が、","en":"The proposal you revised after taking stakeholder feedback into account"},{"id":49,"tag":"現在完了","jp":"あなたが［意思決定者向けに］短くまとめてくれた選択肢が、","en":"The options you’ve summarised for the decision-makers"},{"id":50,"tag":"過去","jp":"あなたが［コスト削減の観点から］提案した施策が、","en":"The measure you proposed from a cost reduction perspective"},{"id":51,"tag":"現在完了","jp":"あなたが［運用負荷を下げるために］設計してくれた手順が、","en":"The procedure you’ve designed to reduce operational workload"},{"id":52,"tag":"過去","jp":"あなたが［ミス防止のために］追加した確認欄が、","en":"The check field you added to prevent errors"},{"id":53,"tag":"現在完了","jp":"あなたが［引継ぎのために］文書化してくれた作業手順が、","en":"The work procedure you’ve documented for the handover"},{"id":54,"tag":"過去","jp":"あなたが［新人向けに］簡略化した説明資料が、","en":"The briefing materials you simplified for new starters"},{"id":55,"tag":"現在完了","jp":"あなたが［オンボーディング用に］作成してくれたチェックリストが、","en":"The checklist you’ve prepared for onboarding"},{"id":56,"tag":"過去","jp":"あなたが［システム移行前に］確認した依存関係が、","en":"The dependencies you checked before the system migration"},{"id":57,"tag":"現在完了","jp":"あなたが［障害対応のために］保存してくれたログが、","en":"The logs you’ve saved for the incident response"},{"id":58,"tag":"過去","jp":"あなたが［復旧後に］記録した対応履歴が、","en":"The response history you recorded after the recovery"},{"id":59,"tag":"現在完了","jp":"あなたが［リリース前に］確認してくれた不具合一覧が、","en":"The defect list you’ve checked before the release"},{"id":60,"tag":"過去","jp":"あなたが［ユーザーテスト後に］更新した改善案が、","en":"The improvement proposal you updated after user testing"},{"id":61,"tag":"現在完了","jp":"あなたが［顧客対応の記録から］拾ってくれた共通課題が、","en":"The common issues you’ve identified from the customer support records"},{"id":62,"tag":"過去","jp":"あなたが［問い合わせ内容を見て］分類した顧客ニーズが、","en":"The customer needs you categorised after reviewing the enquiries"},{"id":63,"tag":"現在完了","jp":"あなたが［営業資料に合わせて］整えてくれた導入事例が、","en":"The case study you’ve refined for the sales materials"},{"id":64,"tag":"過去","jp":"あなたが［提案書に入れるために］選んだ実績データが、","en":"The performance data you selected for the proposal"},{"id":65,"tag":"現在完了","jp":"あなたが［役員会向けに］更新してくれた事業計画が、","en":"The business plan you’ve updated for the board meeting"},{"id":66,"tag":"過去","jp":"あなたが［四半期レビュー用に］準備した業績サマリーが、","en":"The performance summary you prepared for the quarterly review"},{"id":67,"tag":"現在完了","jp":"あなたが［投資判断の材料として］整理した比較表が、","en":"The comparison table you’ve organised as supporting material for the investment decision"},{"id":68,"tag":"過去","jp":"あなたが［市場調査を踏まえて］選んだ参照資料が、","en":"The reference materials you selected based on the market research"},{"id":69,"tag":"現在完了","jp":"あなたが［外部レポートから］引用してくれた統計が、","en":"The statistics you’ve cited from the external report"},{"id":70,"tag":"過去","jp":"あなたが［根拠資料として］提出した証拠が、","en":"The evidence you submitted as supporting evidence"},{"id":71,"tag":"現在完了","jp":"あなたが［契約更新に向けて］確認してくれた更新条件が、","en":"The renewal terms you’ve checked for the contract renewal"},{"id":72,"tag":"過去","jp":"あなたが［取引先との交渉で］提示した代替案が、","en":"The alternative you presented in the negotiation with the supplier"},{"id":73,"tag":"現在完了","jp":"あなたが［先方の回答を受けて］見直した交渉方針が、","en":"The negotiation approach you’ve reviewed after receiving their response"},{"id":74,"tag":"過去","jp":"あなたが［社内承認を取る前に］確認した制約条件が、","en":"The constraints you checked before seeking internal approval"},{"id":75,"tag":"現在完了","jp":"あなたが［承認者向けに］補足してくれた説明が、","en":"The explanation you’ve supplemented for the approver"},{"id":76,"tag":"過去","jp":"あなたが［予算上限を踏まえて］削った項目が、","en":"The items you removed in light of the budget cap"},{"id":77,"tag":"現在完了","jp":"あなたが［必要最低限に］絞ってくれた要件が、","en":"The requirements you’ve narrowed down to the essentials"},{"id":78,"tag":"過去","jp":"あなたが［優先度の低いものとして後回しに］したタスクが、","en":"The task you deferred as a lower priority"},{"id":79,"tag":"現在完了","jp":"あなたが［今期中に対応するものとして］選んだ施策が、","en":"The measures you’ve selected for implementation this quarter"},{"id":80,"tag":"過去","jp":"あなたが［次回会議に回すものとして］残した論点が、","en":"The issues you left for the next meeting"},{"id":81,"tag":"現在進行","jp":"あなたが［今、法務部と］確認している契約書案が、","en":"The draft contract you’re checking with Legal now"},{"id":82,"tag":"現在進行","jp":"あなたが［現在、財務部と］照合している数値が、","en":"The figures you’re currently reconciling with Finance"},{"id":83,"tag":"現在進行","jp":"あなたが［今週、営業部と］詰めている提案内容が、","en":"The proposal details you’re finalising with Sales this week"},{"id":84,"tag":"現在完了進行","jp":"あなたが［ここ数日、取引先と］調整している納期が、","en":"The delivery date you’ve been coordinating with the supplier over the past few days"},{"id":85,"tag":"現在完了進行","jp":"あなたが［今週ずっと］追跡している未回答の問い合わせが、","en":"The outstanding enquiries you’ve been tracking all week"},{"id":86,"tag":"過去完了","jp":"あなたが［会議前にすでに］共有していた資料が、","en":"The materials you had already shared before the meeting"},{"id":87,"tag":"過去完了","jp":"あなたが［方針変更の前に］確定していたスケジュールが、","en":"The schedule you had finalised before the change in policy"},{"id":88,"tag":"過去完了","jp":"あなたが［問題発覚前に］承認していた手続きが、","en":"The procedure you had approved before the issue came to light"},{"id":89,"tag":"未来予定","jp":"あなたが［明日の会議前に］送ってくれるアジェンダが、","en":"The agenda you’ll send before tomorrow’s meeting"},{"id":90,"tag":"未来予定","jp":"あなたが［午後の確認後に］共有する予定の最新版が、","en":"The latest version you’re going to share after the afternoon review"},{"id":91,"tag":"予定・義務寄り","jp":"あなたが［来週の締切までに］提出することになっている報告書が、","en":"The report you’re due to submit by next week’s deadline"},{"id":92,"tag":"未来予定","jp":"あなたが［法務レビュー後に］更新する予定の契約書案が、","en":"The draft contract you’re going to update after the Legal review"},{"id":93,"tag":"現在完了","jp":"あなたが［これまでの議論を踏まえて］再構成してくれた資料が、","en":"The materials you’ve restructured based on the discussion so far"},{"id":94,"tag":"過去","jp":"あなたが［説明の流れを良くするために］入れ替えた順番が、","en":"The order you changed to improve the flow of the explanation"},{"id":95,"tag":"現在完了","jp":"あなたが［読みやすくするために］短くしてくれた文章が、","en":"The text you’ve shortened to make it easier to read"},{"id":96,"tag":"過去","jp":"あなたが［誤解を避けるために］言い換えた表現が、","en":"The phrase you reworded to avoid misunderstanding"},{"id":97,"tag":"現在完了","jp":"あなたが［実務で使いやすいように］整えてくれたテンプレートが、","en":"The template you’ve refined for practical use"},{"id":98,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加した注記が、","en":"The note you added to prevent anything being missed"},{"id":99,"tag":"現在完了","jp":"あなたが［最終確認用に］残してくれたコメントが、","en":"The comment you’ve left for final review"},{"id":100,"tag":"直前完了","jp":"あなたが［今の説明に合わせて］修正してくれた主語ブロックが、","en":"The subject block you’ve just revised to match the current explanation"},{"id":101,"tag":"現在完了","jp":"あなたが［法務レビュー後に］修正してくれた契約条項が、","en":"The contract clause you’ve revised after the Legal review"},{"id":102,"tag":"過去","jp":"あなたが［取引先との交渉で］提示した譲歩案が、","en":"The concession you offered in the negotiation with the supplier"},{"id":103,"tag":"現在完了","jp":"あなたが［相手方のコメントを踏まえて］更新した契約書案が、","en":"The draft contract you’ve updated based on the other party’s comments"},{"id":104,"tag":"過去","jp":"あなたが［署名前に］確認した解除条項が、","en":"The termination clause you checked before signing"},{"id":105,"tag":"現在完了","jp":"あなたが［リスクを下げるために］追加してくれた補償条項が、","en":"The indemnity clause you’ve added to reduce risk"},{"id":106,"tag":"過去","jp":"あなたが［責任範囲を明確にするために］直した文言が、","en":"The wording you changed to clarify the scope of liability"},{"id":107,"tag":"現在完了","jp":"あなたが［契約更新に向けて］確認してくれた更新条件が、","en":"The renewal terms you’ve checked for the contract renewal"},{"id":108,"tag":"過去","jp":"あなたが［先方の修正案と］比較した当社案が、","en":"The company draft you compared with their revised version"},{"id":109,"tag":"現在完了","jp":"あなたが［契約交渉用に］整理してくれた争点が、","en":"The negotiation points you’ve organised for the contract discussion"},{"id":110,"tag":"過去","jp":"あなたが［社内承認を取る前に］確認した例外条件が、","en":"The exception conditions you checked before seeking internal approval"},{"id":111,"tag":"現在完了","jp":"あなたが［承認者向けに］補足してくれた判断材料が、","en":"The supporting information you’ve added for the approver"},{"id":112,"tag":"過去","jp":"あなたが［決裁ルートに合わせて］修正した申請内容が、","en":"The application details you amended to match the approval route"},{"id":113,"tag":"現在完了","jp":"あなたが［コンプライアンス確認用に］作成してくれたチェックリストが、","en":"The checklist you’ve prepared for the compliance check"},{"id":114,"tag":"過去","jp":"あなたが［社内規程に照らして］確認した運用手順が、","en":"The operational procedure you checked against the internal regulations"},{"id":115,"tag":"現在完了","jp":"あなたが［監査指摘を踏まえて］見直した管理体制が、","en":"The control framework you’ve reviewed in response to the audit finding"},{"id":116,"tag":"過去","jp":"あなたが［再発防止のために］追加した確認手順が、","en":"The checking process you added to prevent recurrence"},{"id":117,"tag":"現在完了","jp":"あなたが［個人情報の取扱いに合わせて］修正した同意文が、","en":"The consent wording you’ve revised to reflect the handling of personal data"},{"id":118,"tag":"過去","jp":"あなたが［外部委託先に確認してから］更新した委託条件が、","en":"The outsourcing terms you updated after checking with the external provider"},{"id":119,"tag":"現在完了","jp":"あなたが［情報管理の観点から］整理してくれたアクセス権限が、","en":"The access permissions you’ve organised from an information management perspective"},{"id":120,"tag":"過去","jp":"あなたが［保存期間に合わせて］分類した書類が、","en":"The documents you classified according to the retention period"},{"id":121,"tag":"現在完了","jp":"あなたが［社内調査のために］収集してくれた関係資料が、","en":"The related materials you’ve collected for the internal investigation"},{"id":122,"tag":"過去","jp":"あなたが［ヒアリング後に］まとめた事実関係が、","en":"The facts you summarised after the interview"},{"id":123,"tag":"現在完了","jp":"あなたが［関係者の発言から］抽出した時系列が、","en":"The timeline you’ve extracted from the stakeholders’ statements"},{"id":124,"tag":"過去","jp":"あなたが［証拠関係を整理するために］作成した一覧が、","en":"The list you prepared to organise the evidence"},{"id":125,"tag":"現在完了","jp":"あなたが［報告書に入れるために選んで］くれた重要事実が、","en":"The key facts you’ve selected for inclusion in the report"},{"id":126,"tag":"過去","jp":"あなたが［結論を急がないように］残した留保が、","en":"The reservation you left to avoid reaching a premature conclusion"},{"id":127,"tag":"現在完了","jp":"あなたが［判断の前提として］明記してくれた条件が、","en":"The conditions you’ve stated as the basis for the decision"},{"id":128,"tag":"過去","jp":"あなたが［誤解を避けるために］加えた注記が、","en":"The note you added to avoid misunderstanding"},{"id":129,"tag":"現在完了","jp":"あなたが［相手方に伝える前に］調整してくれた表現が、","en":"The wording you’ve adjusted before sending it to the other party"},{"id":130,"tag":"過去","jp":"あなたが［クレーム対応用に］準備した回答案が、","en":"The draft response you prepared for the complaint"},{"id":131,"tag":"現在完了","jp":"あなたが［苦情の経緯に合わせて］直した説明文が、","en":"The explanation you’ve revised to reflect the history of the complaint"},{"id":132,"tag":"過去","jp":"あなたが［顧客の主張を踏まえて］追加した確認事項が、","en":"The points to check you added in light of the customer’s claim"},{"id":133,"tag":"現在完了","jp":"あなたが［返金可否を判断するために］整理した購入履歴が、","en":"The purchase history you’ve organised to assess refund eligibility"},{"id":134,"tag":"過去","jp":"あなたが［規約違反の有無を確認するために］調べた利用状況が、","en":"The usage history you checked to assess whether the terms had been breached"},{"id":135,"tag":"現在完了","jp":"あなたが［対応期限に合わせて］組み直した作業計画が、","en":"The work plan you’ve rearranged to meet the response deadline"},{"id":136,"tag":"過去","jp":"あなたが［行政庁への提出前に］確認した添付書類が、","en":"The supporting documents you checked before submission to the authority"},{"id":137,"tag":"現在完了","jp":"あなたが［申請要件に合わせて］修正した記載内容が、","en":"The application details you’ve amended to meet the filing requirements"},{"id":138,"tag":"過去","jp":"あなたが［窓口での確認後に］追加した証明書が、","en":"The certificate you added after checking at the counter"},{"id":139,"tag":"現在完了","jp":"あなたが［不足書類の指摘を受けて］差し替えた資料が、","en":"The document you’ve replaced after being asked for additional paperwork"},{"id":140,"tag":"過去","jp":"あなたが［補正依頼に対応するために］作成した説明書が、","en":"The explanatory note you prepared to respond to the correction request"},{"id":141,"tag":"現在完了","jp":"あなたが［期限内に提出できるように］整理した申請一式が、","en":"The application package you’ve organised to meet the deadline"},{"id":142,"tag":"過去","jp":"あなたが［依頼者から受け取った情報をもとに］作成した申立書案が、","en":"The draft petition you prepared based on the information from the client"},{"id":143,"tag":"現在完了","jp":"あなたが［不服申立てに向けて］整理してくれた処分理由が、","en":"The grounds for the decision you’ve organised for the appeal"},{"id":144,"tag":"過去","jp":"あなたが［通知書の内容を確認してから］抜き出した争点が、","en":"The issues you extracted after reviewing the notice"},{"id":145,"tag":"現在完了","jp":"あなたが［審査請求書に入れるために］まとめた主張が、","en":"The arguments you’ve summarised for the request for review"},{"id":146,"tag":"過去","jp":"あなたが［提出期限を確認したうえで］組んだ対応スケジュールが、","en":"The response schedule you planned after checking the submission deadline"},{"id":147,"tag":"現在完了","jp":"あなたが［依頼者への説明用に］かみ砕いた手続きの流れが、","en":"The process flow you’ve simplified for explaining it to the client"},{"id":148,"tag":"過去","jp":"あなたが［本人確認書類と］照合して確認した申請者情報が、","en":"The applicant details you checked against the identity documents"},{"id":149,"tag":"現在完了","jp":"あなたが［在留資格の要件に合わせて］整理した活動内容が、","en":"The proposed activities you’ve organised to match the visa requirements"},{"id":150,"tag":"過去","jp":"あなたが［学校からの資料をもとに］作成した在学状況の説明が、","en":"The explanation of enrolment status you prepared based on the school documents"},{"id":151,"tag":"現在完了","jp":"あなたが［雇用契約書に合わせて］修正した職務内容が、","en":"The job description you’ve revised to match the employment contract"},{"id":152,"tag":"過去","jp":"あなたが［勤務先に確認してから］更新した雇用条件が、","en":"The employment terms you updated after checking with the employer"},{"id":153,"tag":"現在完了","jp":"あなたが［入管提出用に］整理してくれた家族関係資料が、","en":"The family relationship documents you’ve organised for immigration submission"},{"id":154,"tag":"過去","jp":"あなたが［翻訳内容を確認したうえで］差し替えた証明書が、","en":"The certificate you replaced after checking the translation"},{"id":155,"tag":"現在完了","jp":"あなたが［申請理由を補強するために］追加した説明が、","en":"The explanation you’ve added to strengthen the application grounds"},{"id":156,"tag":"過去","jp":"あなたが［審査で聞かれそうな点として］残した確認事項が、","en":"The points to confirm you left as likely questions in the review"},{"id":157,"tag":"現在完了","jp":"あなたが［依頼者の事情に合わせて］調整した申請方針が、","en":"The application strategy you’ve adjusted to fit the client’s circumstances"},{"id":158,"tag":"過去","jp":"あなたが［役所の案内を確認してから］変更した提出方法が、","en":"The submission method you changed after checking the authority’s guidance"},{"id":159,"tag":"現在完了","jp":"あなたが［オンライン申請用に］整えた入力内容が、","en":"The entries you’ve prepared for the online application"},{"id":160,"tag":"過去","jp":"あなたが［添付容量に合わせて］圧縮した資料が、","en":"The files you compressed to meet the attachment size limit"},{"id":161,"tag":"現在完了","jp":"あなたが［許認可申請に向けて］確認してくれた営業区域が、","en":"The operating area you’ve checked for the licence application"},{"id":162,"tag":"過去","jp":"あなたが［店舗図面と］照合して確認した設備内容が、","en":"The facility details you checked against the shop layout"},{"id":163,"tag":"現在完了","jp":"あなたが［保健所への相談後に］修正した営業計画が、","en":"The business plan you’ve revised after consulting the public health centre"},{"id":164,"tag":"過去","jp":"あなたが［現地確認の後に］追加した写真資料が、","en":"The photographic evidence you added after the site visit"},{"id":165,"tag":"現在完了","jp":"あなたが［近隣説明のために］作成してくれた案内文が、","en":"The notice you’ve prepared for the neighbourhood briefing"},{"id":166,"tag":"過去","jp":"あなたが［道路使用の条件を見て］調整した実施日時が、","en":"The event schedule you adjusted after checking the road use conditions"},{"id":167,"tag":"現在完了","jp":"あなたが［自治体の様式に合わせて］整えた申請書が、","en":"The application form you’ve adjusted to match the local authority’s format"},{"id":168,"tag":"過去","jp":"あなたが［補助金要領に合わせて］修正した事業目的が、","en":"The project purpose you revised to match the grant guidelines"},{"id":169,"tag":"現在完了","jp":"あなたが［対象経費に合わせて］整理した見積項目が、","en":"The estimate items you’ve organised according to the eligible costs"},{"id":170,"tag":"過去","jp":"あなたが［採択基準を意識して］強調した地域性が、","en":"The local relevance you emphasised with the selection criteria in mind"},{"id":171,"tag":"現在完了","jp":"あなたが［実績報告に備えて］保存してくれた領収書が、","en":"The receipts you’ve saved for the performance report"},{"id":172,"tag":"過去","jp":"あなたが［支出証拠として］添付した振込記録が、","en":"The bank transfer record you attached as evidence of expenditure"},{"id":173,"tag":"現在完了","jp":"あなたが［審査担当者向けに］整理してくれた補足説明が、","en":"The supplementary explanation you’ve organised for the case officer"},{"id":174,"tag":"過去","jp":"あなたが［要件に合わないものとして］除外した経費が、","en":"The expenses you excluded as ineligible"},{"id":175,"tag":"現在完了","jp":"あなたが［証拠書類と］対応させて並べ替えた支出一覧が、","en":"The expenditure list you’ve rearranged to match the supporting documents"},{"id":176,"tag":"過去","jp":"あなたが［社内研修用に］作成したコンプライアンス資料が、","en":"The compliance materials you prepared for internal training"},{"id":177,"tag":"現在完了","jp":"あなたが［新人向けに］簡単にした個人情報ルールが、","en":"The personal data rules you’ve simplified for new starters"},{"id":178,"tag":"過去","jp":"あなたが［現場で使えるように］短くした確認フローが、","en":"The checking flow you shortened for practical use on site"},{"id":179,"tag":"現在完了","jp":"あなたが［問い合わせ対応の標準化のために］作成した回答テンプレートが、","en":"The response template you’ve prepared to standardise enquiry handling"},{"id":180,"tag":"過去","jp":"あなたが［判断のばらつきを減らすために］追加した判断基準が、","en":"The criteria you added to reduce inconsistency in decision-making"},{"id":181,"tag":"現在進行","jp":"あなたが［今、法務部と］詰めている契約リスクが、","en":"The contract risks you’re finalising with Legal now"},{"id":182,"tag":"現在進行","jp":"あなたが［現在、依頼者と］確認している申請理由が、","en":"The application grounds you’re currently checking with the client"},{"id":183,"tag":"現在進行","jp":"あなたが［今週、自治体と］調整している提出方法が、","en":"The submission method you’re coordinating with the local authority this week"},{"id":184,"tag":"現在完了進行","jp":"あなたが［ここ数日、関係部署と］調整している社内承認が、","en":"The internal approval you’ve been coordinating with the relevant departments over the past few days"},{"id":185,"tag":"現在完了進行","jp":"あなたが［今週ずっと］確認している不足書類が、","en":"The missing documents you’ve been checking all week"},{"id":186,"tag":"過去完了","jp":"あなたが［相談前にすでに］準備していた申請書案が、","en":"The draft application form you had already prepared before the consultation"},{"id":187,"tag":"過去完了","jp":"あなたが［補正依頼の前に］提出していた添付資料が、","en":"The supporting documents you had submitted before the correction request"},{"id":188,"tag":"過去完了","jp":"あなたが［審査結果が出る前に］整理していた追加説明が、","en":"The additional explanation you had prepared before the review result came out"},{"id":189,"tag":"未来予定","jp":"あなたが［明日の面談前に］送ってくれる確認リストが、","en":"The checklist you’ll send before tomorrow’s meeting"},{"id":190,"tag":"未来予定","jp":"あなたが［役所への相談後に］修正する予定の申請書が、","en":"The application form you’re going to revise after consulting the authority"},{"id":191,"tag":"予定・義務寄り","jp":"あなたが［来週の期限までに］提出することになっている補正書が、","en":"The correction document you’re due to submit by next week’s deadline"},{"id":192,"tag":"未来予定","jp":"あなたが［依頼者の確認後に］差し替える予定の添付資料が、","en":"The supporting document you’re going to replace after the client’s confirmation"},{"id":193,"tag":"現在完了","jp":"あなたが［ここまでの事情を踏まえて］組み直してくれた申請方針が、","en":"The application strategy you’ve restructured based on the circumstances so far"},{"id":194,"tag":"過去","jp":"あなたが［説明の順番を分かりやすくするために］入れ替えた項目が、","en":"The items you reordered to make the explanation easier to follow"},{"id":195,"tag":"現在完了","jp":"あなたが［専門用語を避けるために］言い換えてくれた文言が、","en":"The wording you’ve rephrased to avoid technical terms"},{"id":196,"tag":"過去","jp":"あなたが［依頼者が読めるように］短くした説明文が、","en":"The explanation you shortened to make it easier for the client to read"},{"id":197,"tag":"現在完了","jp":"あなたが［審査担当者に伝わるように］整えてくれた理由書が、","en":"The statement of reasons you’ve refined to make it clear to the case officer"},{"id":198,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加したチェック欄が、","en":"The check box you added to prevent anything being missed"},{"id":199,"tag":"現在完了","jp":"あなたが［最終確認用に］残してくれたコメントが、","en":"The comment you’ve left for final review"},{"id":200,"tag":"直前完了","jp":"あなたが［このルールに合わせて］作り直してくれた法務・手続き系の主語ブロックが、","en":"The legal and procedural subject block you’ve just recreated to match this rule"},{"id":201,"tag":"現在完了","jp":"あなたが［月次レビュー用に］整理してくれた売上推移が、","en":"The sales trend you’ve organised for the monthly review"},{"id":202,"tag":"過去","jp":"あなたが［予算差異を確認するために］抽出した実績データが、","en":"The actuals you extracted to check the budget variance"},{"id":203,"tag":"現在完了","jp":"あなたが［事業部別に］分類してくれた費用項目が、","en":"The cost items you’ve categorised by business unit"},{"id":204,"tag":"過去","jp":"あなたが［前月比で］比較した売上実績が、","en":"The sales results you compared against the previous month"},{"id":205,"tag":"現在完了","jp":"あなたが［前年同月と］比べて見直した需要予測が、","en":"The demand forecast you’ve reviewed against the same month last year"},{"id":206,"tag":"過去","jp":"あなたが［粗利率の変化を見るために］加工した利益データが、","en":"The profit data you processed to review the change in gross margin"},{"id":207,"tag":"現在完了","jp":"あなたが［経営会議向けに］要約してくれたKPIが、","en":"The KPIs you’ve summarised for the management meeting"},{"id":208,"tag":"過去","jp":"あなたが［週次報告に入れるために］選んだ主要指標が、","en":"The key metrics you selected for the weekly report"},{"id":209,"tag":"現在完了","jp":"あなたが［部門横断で見られるように］整えた管理表が、","en":"The tracking sheet you’ve prepared for cross-departmental use"},{"id":210,"tag":"過去","jp":"あなたが［入力ミスを確認したうえで］修正した数値が、","en":"The figures you corrected after checking for input errors"},{"id":211,"tag":"現在完了","jp":"あなたが［重複データを除いて］整理してくれた顧客一覧が、","en":"The customer list you’ve cleaned by removing duplicate records"},{"id":212,"tag":"過去","jp":"あなたが［案件ステータス別に］並べ替えた商談リストが、","en":"The opportunity list you sorted by deal status"},{"id":213,"tag":"現在完了","jp":"あなたが［営業担当者ごとに］集計してくれた受注見込みが、","en":"The sales pipeline you’ve aggregated by account manager"},{"id":214,"tag":"過去","jp":"あなたが［確度別に］分類した見込み案件が、","en":"The prospective deals you categorised by likelihood"},{"id":215,"tag":"現在完了","jp":"あなたが［失注理由ごとに］整理した商談履歴が、","en":"The deal history you’ve organised by reason for loss"},{"id":216,"tag":"過去","jp":"あなたが［提案前に］確認した顧客課題が、","en":"The customer issues you checked before the proposal"},{"id":217,"tag":"現在完了","jp":"あなたが［営業資料に合わせて］整えてくれた導入事例が、","en":"The case study you’ve refined for the sales materials"},{"id":218,"tag":"過去","jp":"あなたが［顧客説明用に］短くしたサービス概要が、","en":"The service overview you shortened for the client explanation"},{"id":219,"tag":"現在完了","jp":"あなたが［提案書に入れるために選んで］くれた実績データが、","en":"The performance data you’ve selected for the proposal"},{"id":220,"tag":"過去","jp":"あなたが［競合比較に使うために］集めた価格情報が、","en":"The pricing information you collected for the competitor comparison"},{"id":221,"tag":"現在完了","jp":"あなたが［顧客の業種別に］整理した問い合わせ内容が、","en":"The enquiries you’ve organised by customer industry"},{"id":222,"tag":"過去","jp":"あなたが［一次対応の後に］更新した問い合わせステータスが、","en":"The enquiry status you updated after the first response"},{"id":223,"tag":"現在完了","jp":"あなたが［未対応分を確認するために］抽出したチケットが、","en":"The tickets you’ve extracted to check the outstanding items"},{"id":224,"tag":"過去","jp":"あなたが［優先対応が必要なものとして］選んだ顧客連絡が、","en":"The customer contacts you selected as requiring priority handling"},{"id":225,"tag":"現在完了","jp":"あなたが［対応漏れを防ぐために］追加してくれた確認欄が、","en":"The check field you’ve added to prevent missed follow-ups"},{"id":226,"tag":"過去","jp":"あなたが［担当者変更に合わせて］更新した引継ぎメモが、","en":"The handover note you updated following the change of owner"},{"id":227,"tag":"現在完了","jp":"あなたが［次回商談に備えて］整理した質問事項が、","en":"The questions you’ve prepared for the next sales meeting"},{"id":228,"tag":"過去","jp":"あなたが［顧客の反応を踏まえて］修正した提案内容が、","en":"The proposal details you revised after considering the customer’s reaction"},{"id":229,"tag":"現在完了","jp":"あなたが［決裁者向けに］言い換えてくれた導入効果が、","en":"The implementation benefits you’ve rephrased for the decision-maker"},{"id":230,"tag":"過去","jp":"あなたが［社内説明用に］分かりやすくした見積根拠が、","en":"The basis for the quotation you simplified for the internal explanation"},{"id":231,"tag":"現在完了","jp":"あなたが［予実管理のために］作成してくれた比較表が、","en":"The comparison table you’ve prepared for budget control"},{"id":232,"tag":"過去","jp":"あなたが［着地見込みを出すために］調整した売上予測が、","en":"The sales forecast you adjusted to estimate the landing figure"},{"id":233,"tag":"現在完了","jp":"あなたが［保守的な前提で］見直してくれた利益見込みが、","en":"The profit outlook you’ve reviewed on a conservative basis"},{"id":234,"tag":"過去","jp":"あなたが［追加施策を反映して］更新した事業計画が、","en":"The business plan you updated to reflect the additional measures"},{"id":235,"tag":"現在完了","jp":"あなたが［新しい料金体系に合わせて］修正した売上モデルが、","en":"The revenue model you’ve revised to match the new pricing structure"},{"id":236,"tag":"過去","jp":"あなたが［解約率を確認するために］分析した顧客データが、","en":"The customer data you analysed to review the churn rate"},{"id":237,"tag":"現在完了","jp":"あなたが［継続率を見るために］整理した契約データが、","en":"The contract data you’ve organised to review the retention rate"},{"id":238,"tag":"過去","jp":"あなたが［利用頻度別に］分類したユーザー一覧が、","en":"The user list you categorised by usage frequency"},{"id":239,"tag":"現在完了","jp":"あなたが［休眠顧客を把握するために］抽出したアカウントが、","en":"The accounts you’ve extracted to identify inactive customers"},{"id":240,"tag":"過去","jp":"あなたが［アップセル候補として］選んだ顧客群が、","en":"The customer segment you selected as upsell candidates"},{"id":241,"tag":"現在完了","jp":"あなたが［キャンペーン効果を見るために］比較した申込数が、","en":"The application numbers you’ve compared to assess the campaign effect"},{"id":242,"tag":"過去","jp":"あなたが［配信前後で］確認したクリック率が、","en":"The click-through rate you checked before and after the campaign"},{"id":243,"tag":"現在完了","jp":"あなたが［流入経路別に］整理してくれた獲得実績が、","en":"The acquisition results you’ve organised by traffic source"},{"id":244,"tag":"過去","jp":"あなたが［広告費と］照合して確認した獲得単価が、","en":"The acquisition cost you checked against the advertising spend"},{"id":245,"tag":"現在完了","jp":"あなたが［施策ごとに］分けてくれた改善効果が、","en":"The improvement effect you’ve broken down by initiative"},{"id":246,"tag":"過去","jp":"あなたが［A/Bテストの結果を受けて］更新した表示文言が、","en":"The display wording you updated following the A/B test results"},{"id":247,"tag":"現在完了","jp":"あなたが［離脱率を下げるために］見直した導線が、","en":"The user journey you’ve reviewed to reduce the drop-off rate"},{"id":248,"tag":"過去","jp":"あなたが［申込完了率を見るために］抽出した画面遷移データが、","en":"The screen transition data you extracted to review the completion rate"},{"id":249,"tag":"現在完了","jp":"あなたが［利用者の声を踏まえて］整理した改善要望が、","en":"The improvement requests you’ve organised based on user feedback"},{"id":250,"tag":"過去","jp":"あなたが［アンケート結果から］抜き出した不満点が、","en":"The pain points you extracted from the survey results"},{"id":251,"tag":"現在完了","jp":"あなたが［自由記述欄から］分類してくれた意見が、","en":"The comments you’ve categorised from the free-text responses"},{"id":252,"tag":"過去","jp":"あなたが［回答者属性ごとに］比較した満足度が、","en":"The satisfaction scores you compared by respondent attribute"},{"id":253,"tag":"現在完了","jp":"あなたが［NPSの理由別に］整理した回答が、","en":"The responses you’ve organised by reason for the NPS score"},{"id":254,"tag":"過去","jp":"あなたが［低評価者の傾向を見るために］抽出したコメントが、","en":"The comments you extracted to review the pattern among detractors"},{"id":255,"tag":"現在完了","jp":"あなたが［改善優先度を付けるために］並べ替えた課題が、","en":"The issues you’ve sorted to set improvement priorities"},{"id":256,"tag":"過去","jp":"あなたが［社内説明に使うために］選んだ代表コメントが、","en":"The representative comments you selected for the internal explanation"},{"id":257,"tag":"現在完了","jp":"あなたが［レポート冒頭に置くために］まとめた要旨が、","en":"The executive summary you’ve prepared for the opening of the report"},{"id":258,"tag":"過去","jp":"あなたが［読み手の理解を助けるために］並べ替えた章立てが、","en":"The structure you reordered to help the reader understand the report"},{"id":259,"tag":"現在完了","jp":"あなたが［結論が伝わるように］書き直した見出しが、","en":"The headings you’ve rewritten to make the conclusion clear"},{"id":260,"tag":"過去","jp":"あなたが［図表の前に置くために］追加した説明文が、","en":"The explanatory text you added before the chart"},{"id":261,"tag":"現在完了","jp":"あなたが［数字の読み違いを防ぐために］補足した注記が、","en":"The note you’ve added to prevent the figures being misread"},{"id":262,"tag":"過去","jp":"あなたが［前提条件を明確にするために］追記した説明が、","en":"The explanation you added to clarify the assumptions"},{"id":263,"tag":"現在完了","jp":"あなたが［議論の流れに合わせて］移動した段落が、","en":"The paragraph you’ve moved to match the flow of the argument"},{"id":264,"tag":"過去","jp":"あなたが［重複を避けるために］削除した説明が、","en":"The explanation you removed to avoid duplication"},{"id":265,"tag":"現在完了","jp":"あなたが［読みやすさを優先して］短くした分析部分が、","en":"The analysis section you’ve shortened to prioritise readability"},{"id":266,"tag":"過去","jp":"あなたが［結論とのつながりを強めるために］直した比較部分が、","en":"The comparison section you revised to strengthen the link with the conclusion"},{"id":267,"tag":"現在完了","jp":"あなたが［経営層がすぐ読めるように］要約した背景説明が、","en":"The background explanation you’ve summarised for quick reading by senior management"},{"id":268,"tag":"過去","jp":"あなたが［担当者向けに］詳しく残した補足説明が、","en":"The supplementary explanation you left in detail for the person in charge"},{"id":269,"tag":"現在完了","jp":"あなたが［レビューコメントを踏まえて］修正したレポート案が、","en":"The draft report you’ve revised based on the review comments"},{"id":270,"tag":"過去","jp":"あなたが［提出直前に］差し替えた図表が、","en":"The chart you replaced just before submission"},{"id":271,"tag":"現在完了","jp":"あなたが［最新データに合わせて］更新したグラフが、","en":"The graph you’ve updated to reflect the latest data"},{"id":272,"tag":"過去","jp":"あなたが［凡例を分かりやすくするために］修正した表示名が、","en":"The labels you revised to make the legend easier to understand"},{"id":273,"tag":"現在完了","jp":"あなたが［単位をそろえるために］調整した数値表記が、","en":"The numerical notation you’ve adjusted to standardise the units"},{"id":274,"tag":"過去","jp":"あなたが［円換算で見せるために］追加した参考金額が、","en":"The reference amounts you added to show the figures in yen"},{"id":275,"tag":"現在完了","jp":"あなたが［海外売上を見やすくするために］分けてくれた地域区分が、","en":"The regional segments you’ve separated to make overseas sales easier to read"},{"id":276,"tag":"過去","jp":"あなたが［為替影響を除いて］見直した成長率が、","en":"The growth rate you reviewed excluding the foreign exchange impact"},{"id":277,"tag":"現在完了","jp":"あなたが［一時要因を除いて］計算し直した利益率が、","en":"The profit margin you’ve recalculated excluding one-off factors"},{"id":278,"tag":"過去","jp":"あなたが［在庫影響を確認するために］比較した販売数量が、","en":"The sales volume you compared to check the inventory impact"},{"id":279,"tag":"現在完了","jp":"あなたが［季節性を考慮して］見直した需要見通しが、","en":"The demand outlook you’ve reviewed taking seasonality into account"},{"id":280,"tag":"過去","jp":"あなたが［大型案件を除いて］集計した平均単価が、","en":"The average unit price you calculated excluding major deals"},{"id":281,"tag":"現在進行","jp":"あなたが［今、営業部と］確認している受注見込みが、","en":"The sales pipeline you’re checking with Sales now"},{"id":282,"tag":"現在進行","jp":"あなたが［現在、財務部と］照合している予算差異が、","en":"The budget variance you’re currently reconciling with Finance"},{"id":283,"tag":"現在進行","jp":"あなたが［今週、事業部と］詰めている着地見込みが、","en":"The landing forecast you’re finalising with the business unit this week"},{"id":284,"tag":"現在完了進行","jp":"あなたが［ここ数日、関係部署と］調整している月次報告が、","en":"The monthly report you’ve been coordinating with the relevant departments over the past few days"},{"id":285,"tag":"現在完了進行","jp":"あなたが［今週ずっと］確認している未入力データが、","en":"The missing entries you’ve been checking all week"},{"id":286,"tag":"過去完了","jp":"あなたが［締切前にすでに］提出していた集計表が、","en":"The summary table you had already submitted before the deadline"},{"id":287,"tag":"過去完了","jp":"あなたが［レビュー会議の前に］更新していた予測値が、","en":"The forecast figures you had updated before the review meeting"},{"id":288,"tag":"過去完了","jp":"あなたが［方針変更の前に］作成していた説明資料が、","en":"The briefing materials you had prepared before the change in direction"},{"id":289,"tag":"未来予定","jp":"あなたが［明日の定例会前に］共有してくれる最新版が、","en":"The latest version you’ll share before tomorrow’s regular meeting"},{"id":290,"tag":"未来予定","jp":"あなたが［午後の確認後に］更新する予定の数値表が、","en":"The figures table you’re going to update after the afternoon check"},{"id":291,"tag":"予定・義務寄り","jp":"あなたが［月末までに］提出することになっている事業報告が、","en":"The business report you’re due to submit by the end of the month"},{"id":292,"tag":"未来予定","jp":"あなたが［営業部からの回答後に］差し替える予定の提案資料が、","en":"The proposal materials you’re going to replace after receiving Sales’ response"},{"id":293,"tag":"現在完了","jp":"あなたが［ここまでのデータを踏まえて］組み直してくれた分析軸が、","en":"The analysis framework you’ve restructured based on the data so far"},{"id":294,"tag":"過去","jp":"あなたが［説明の流れを良くするために］入れ替えたスライド順が、","en":"The slide order you changed to improve the flow of the explanation"},{"id":295,"tag":"現在完了","jp":"あなたが［読み手に負担をかけないように］短くした本文が、","en":"The main text you’ve shortened to reduce the burden on the reader"},{"id":296,"tag":"過去","jp":"あなたが［数字の意味が伝わるように］言い換えたコメントが、","en":"The comment you reworded to make the meaning of the figures clear"},{"id":297,"tag":"現在完了","jp":"あなたが［実務で再利用できるように］整えてくれた集計テンプレートが、","en":"The summary template you’ve refined for practical reuse"},{"id":298,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加したレビュー欄が、","en":"The review field you added to prevent missed checks"},{"id":299,"tag":"現在完了","jp":"あなたが［最終確認用に］残してくれた修正メモが、","en":"The revision note you’ve left for final review"},{"id":300,"tag":"直前完了","jp":"あなたが［この事業管理セットに合わせて］作り直してくれた主語ブロックが、","en":"The subject block you’ve just recreated for this business management set"},{"id":301,"tag":"現在完了","jp":"あなたが［応募先に合わせて］修正してくれた職務経歴書が、","en":"The CV you’ve tailored to the role"},{"id":302,"tag":"過去","jp":"あなたが［求人票を読んだ後に］書き直した志望動機が、","en":"The motivation statement you rewrote after reading the job description"},{"id":303,"tag":"現在完了","jp":"あなたが［面接用に］整理してくれた自己紹介が、","en":"The self-introduction you’ve organised for the interview"},{"id":304,"tag":"過去","jp":"あなたが［強みを説明するために］選んだ経験談が、","en":"The example you selected to explain your strengths"},{"id":305,"tag":"現在完了","jp":"あなたが［職務経歴書に入れるために］短くまとめた実績が、","en":"The achievements you’ve summarised for your CV"},{"id":306,"tag":"過去","jp":"あなたが［面接官に伝わるように］言い換えた退職理由が、","en":"The reason for leaving you rephrased for the interviewer"},{"id":307,"tag":"現在完了","jp":"あなたが［ブランク期間を説明するために］準備してくれた説明が、","en":"The explanation you’ve prepared for the career gap"},{"id":308,"tag":"過去","jp":"あなたが［想定質問に合わせて］組み直した回答が、","en":"The answer you restructured to fit the expected question"},{"id":309,"tag":"現在完了","jp":"あなたが［面接の流れに合わせて］並べ替えた話す順番が、","en":"The order you’ve rearranged to match the interview flow"},{"id":310,"tag":"過去","jp":"あなたが［話しすぎを避けるために］削った補足説明が、","en":"The additional explanation you removed to avoid overexplaining"},{"id":311,"tag":"現在完了","jp":"あなたが［短く答えられるように］整えた回答例が、","en":"The sample answer you’ve refined for a concise response"},{"id":312,"tag":"過去","jp":"あなたが［面接官の反応を見て］追加した説明が、","en":"The explanation you added after observing the interviewer’s reaction"},{"id":313,"tag":"現在完了","jp":"あなたが［企業研究を踏まえて］修正した志望理由が、","en":"The reason for applying you’ve revised based on your company research"},{"id":314,"tag":"過去","jp":"あなたが［職種理解を示すために］強調した経験が、","en":"The experience you emphasised to show your understanding of the role"},{"id":315,"tag":"現在完了","jp":"あなたが［応募書類全体に合わせて］調整した表現が、","en":"The wording you’ve adjusted to fit the application as a whole"},{"id":316,"tag":"過去","jp":"あなたが［自然に聞こえるように］直した面接回答が、","en":"The interview answer you revised to make it sound natural"},{"id":317,"tag":"現在完了","jp":"あなたが［職務内容に合わせて］選び直した実績が、","en":"The achievements you’ve reselected to match the job duties"},{"id":318,"tag":"過去","jp":"あなたが［応募先の雰囲気に合わせて抑えめに］した表現が、","en":"The wording you toned down to match the company’s style"},{"id":319,"tag":"現在完了","jp":"あなたが［伝えたい軸を残して］短くした自己PRが、","en":"The personal statement you’ve shortened while keeping the main message"},{"id":320,"tag":"過去","jp":"あなたが［面接前の確認用に］残したメモが、","en":"The notes you left for pre-interview review"},{"id":321,"tag":"現在完了","jp":"あなたが［採用担当者向けに］整えたメール文面が、","en":"The email wording you’ve refined for the recruiter"},{"id":322,"tag":"過去","jp":"あなたが［日程調整のために］送った返信が、","en":"The reply you sent to arrange the schedule"},{"id":323,"tag":"現在完了","jp":"あなたが［候補日を分かりやすくするために］整理した予定が、","en":"The availability you’ve organised to make the possible dates clear"},{"id":324,"tag":"過去","jp":"あなたが［面接後のお礼として］送ったメールが、","en":"The email you sent as a follow-up after the interview"},{"id":325,"tag":"現在完了","jp":"あなたが［失礼なく確認するために］整えた催促文が、","en":"The follow-up message you’ve refined to check politely"},{"id":326,"tag":"過去","jp":"あなたが［返答期限を確認するために］送った問い合わせが、","en":"The enquiry you sent to confirm the response deadline"},{"id":327,"tag":"現在完了","jp":"あなたが［採用条件を確認するために］まとめた質問が、","en":"The questions you’ve prepared to confirm the employment conditions"},{"id":328,"tag":"過去","jp":"あなたが［オファー面談に備えて］整理した確認事項が、","en":"The points to confirm you organised for the offer meeting"},{"id":329,"tag":"現在完了","jp":"あなたが［給与条件を見るために］比較した待遇情報が、","en":"The employment terms you’ve compared to review the salary conditions"},{"id":330,"tag":"過去","jp":"あなたが［働き方を確認するために］聞いた質問が、","en":"The question you asked to confirm the working style"},{"id":331,"tag":"現在完了","jp":"あなたが［社内共有用に］まとめてくれた面接メモが、","en":"The interview notes you’ve summarised for internal sharing"},{"id":332,"tag":"過去","jp":"あなたが［上長への報告用に］整理した要点が、","en":"The key points you organised for reporting to your manager"},{"id":333,"tag":"現在完了","jp":"あなたが［チームに伝えるために］短くした報告内容が、","en":"The update you’ve shortened for the team"},{"id":334,"tag":"過去","jp":"あなたが［会議前に］共有したアジェンダが、","en":"The agenda you shared before the meeting"},{"id":335,"tag":"現在完了","jp":"あなたが［参加者の関心に合わせて］調整した議題が、","en":"The agenda items you’ve adjusted to match the participants’ interests"},{"id":336,"tag":"過去","jp":"あなたが［会議中に］拾った未決事項が、","en":"The open points you captured during the meeting"},{"id":337,"tag":"現在完了","jp":"あなたが［議事録に入れるために］整理した決定事項が、","en":"The decisions you’ve organised for the minutes"},{"id":338,"tag":"過去","jp":"あなたが［次回までの宿題として］残した対応事項が、","en":"The action items you left for the next meeting"},{"id":339,"tag":"現在完了","jp":"あなたが［担当者ごとに］振り分けてくれたタスクが、","en":"The tasks you’ve allocated by owner"},{"id":340,"tag":"過去","jp":"あなたが［期限を明確にするために］追記した日付が、","en":"The dates you added to clarify the deadlines"},{"id":341,"tag":"現在完了","jp":"あなたが［参加者に誤解がないように］直した議事録が、","en":"The minutes you’ve revised to avoid confusion among the participants"},{"id":342,"tag":"過去","jp":"あなたが［会議後すぐに］送ったフォローアップが、","en":"The follow-up you sent straight after the meeting"},{"id":343,"tag":"現在完了","jp":"あなたが［関係者に共有する前に］確認してくれた文面が、","en":"The wording you’ve checked before sharing it with the stakeholders"},{"id":344,"tag":"過去","jp":"あなたが［相手の負担を減らすために］短くした依頼文が、","en":"The request you shortened to reduce the burden on the recipient"},{"id":345,"tag":"現在完了","jp":"あなたが［返信しやすいように］選択肢を入れたメールが、","en":"The email you’ve added options to so that the recipient can reply easily"},{"id":346,"tag":"過去","jp":"あなたが［相手の状況に］配慮して柔らかくした表現が、","en":"The wording you softened to take the recipient’s situation into account"},{"id":347,"tag":"現在完了","jp":"あなたが［確認事項を減らすために］まとめた質問が、","en":"The questions you’ve combined to reduce back-and-forth"},{"id":348,"tag":"過去","jp":"あなたが［急ぎであることを伝えるために］加えた一文が、","en":"The sentence you added to make the urgency clear"},{"id":349,"tag":"現在完了","jp":"あなたが［角が立たないように］言い換えてくれた指摘が、","en":"The comment you’ve rephrased to avoid sounding too blunt"},{"id":350,"tag":"過去","jp":"あなたが［相手に判断してもらうために］整理した選択肢が、","en":"The options you organised for the recipient to decide on"},{"id":351,"tag":"現在完了","jp":"あなたが［関係部署との調整後に］更新したスケジュールが、","en":"The schedule you’ve updated after coordinating with the relevant departments"},{"id":352,"tag":"過去","jp":"あなたが［営業部と確認してから］変更した顧客対応方針が、","en":"The customer response policy you changed after checking with Sales"},{"id":353,"tag":"現在完了","jp":"あなたが［法務部のコメントを受けて］直したメール文面が、","en":"The email wording you’ve revised after Legal’s comments"},{"id":354,"tag":"過去","jp":"あなたが［財務部の確認後に］差し替えた金額が、","en":"The amount you replaced after Finance’s check"},{"id":355,"tag":"現在完了","jp":"あなたが［人事部との相談後に］調整した説明内容が、","en":"The explanation you’ve adjusted after consulting HR"},{"id":356,"tag":"過去","jp":"あなたが［関係者全員に伝わるように］書き直した案内文が、","en":"The notice you rewrote so that all stakeholders could understand it"},{"id":357,"tag":"現在完了","jp":"あなたが［部署間の認識をそろえるために］整理した前提が、","en":"The assumptions you’ve organised to align understanding across departments"},{"id":358,"tag":"過去","jp":"あなたが［認識違いをなくすために］確認した定義が、","en":"The definitions you checked to remove any misunderstanding"},{"id":359,"tag":"現在完了","jp":"あなたが［作業範囲を明確にするために］書き足した説明が、","en":"The explanation you’ve added to clarify the scope of work"},{"id":360,"tag":"過去","jp":"あなたが［責任分担を示すために］作成した一覧が、","en":"The list you prepared to show the division of responsibilities"},{"id":361,"tag":"現在完了","jp":"あなたが［会議体を整理するために］見直した参加者リストが、","en":"The participant list you’ve reviewed to streamline the meeting structure"},{"id":362,"tag":"過去","jp":"あなたが［意思決定者を明確にするために］追加した役割が、","en":"The role you added to clarify the decision-maker"},{"id":363,"tag":"現在完了","jp":"あなたが［報告ラインに合わせて］修正した共有先が、","en":"The recipients you’ve amended to match the reporting line"},{"id":364,"tag":"過去","jp":"あなたが［情報共有を早めるために］変更した連絡手順が、","en":"The communication process you changed to speed up information sharing"},{"id":365,"tag":"現在完了","jp":"あなたが［担当者が迷わないように］整えた依頼手順が、","en":"The request process you’ve refined so that the owner knows what to do"},{"id":366,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加したチェック項目が、","en":"The check items you added to prevent anything being missed"},{"id":367,"tag":"現在完了","jp":"あなたが［定例会で確認するために］まとめた未解決事項が、","en":"The unresolved issues you’ve summarised for the regular meeting"},{"id":368,"tag":"過去","jp":"あなたが［次のアクションにつなげるために］整理した合意事項が、","en":"The agreements you organised to lead into the next actions"},{"id":369,"tag":"現在完了","jp":"あなたが［社内向けに］表現を弱めたコメントが、","en":"The comment you’ve toned down for internal use"},{"id":370,"tag":"過去","jp":"あなたが［顧客向けに丁寧に］した説明文が、","en":"The explanation you made more polite for the client"},{"id":371,"tag":"現在完了","jp":"あなたが［役員向けに］短くした進捗報告が、","en":"The progress update you’ve shortened for the executives"},{"id":372,"tag":"過去","jp":"あなたが［現場向けに具体的に］した作業指示が、","en":"The work instruction you made more specific for the frontline team"},{"id":373,"tag":"現在完了","jp":"あなたが［新人向けに］分かりやすくした業務説明が、","en":"The task explanation you’ve made easier for new starters to understand"},{"id":374,"tag":"過去","jp":"あなたが［海外メンバー向けに簡潔に］した共有文が、","en":"The update you simplified for overseas members"},{"id":375,"tag":"現在完了","jp":"あなたが［英語メール用に自然に］直した依頼文が、","en":"The request you’ve revised to sound natural in an English email"},{"id":376,"tag":"過去","jp":"あなたが［社外向けにフォーマルに］した回答が、","en":"The response you made more formal for external use"},{"id":377,"tag":"現在完了","jp":"あなたが［チャットで送れるように］短くした確認文が、","en":"The confirmation message you’ve shortened for chat"},{"id":378,"tag":"過去","jp":"あなたが［電話後の記録として］残したメモが、","en":"The note you left as a record of the call"},{"id":379,"tag":"現在完了","jp":"あなたが［相手の発言を踏まえて］修正した要約が、","en":"The summary you’ve revised based on the other person’s comments"},{"id":380,"tag":"過去","jp":"あなたが［議論が戻らないように］明記した結論が、","en":"The conclusion you stated clearly to avoid reopening the discussion"},{"id":381,"tag":"現在進行","jp":"あなたが［今、採用担当者と］調整している面接日程が、","en":"The interview schedule you’re arranging with the recruiter now"},{"id":382,"tag":"現在進行","jp":"あなたが［現在、上長と］確認している報告内容が、","en":"The update you’re currently checking with your manager"},{"id":383,"tag":"現在進行","jp":"あなたが［今週、関係部署と］詰めている対応方針が、","en":"The response plan you’re finalising with the relevant departments this week"},{"id":384,"tag":"現在完了進行","jp":"あなたが［ここ数日、採用担当者と］調整している条件面談が、","en":"The offer meeting you’ve been arranging with the recruiter over the past few days"},{"id":385,"tag":"現在完了進行","jp":"あなたが［今週ずっと］確認している未返信のメールが、","en":"The unanswered emails you’ve been checking all week"},{"id":386,"tag":"過去完了","jp":"あなたが［面接前にすでに］準備していた回答例が、","en":"The sample answers you had already prepared before the interview"},{"id":387,"tag":"過去完了","jp":"あなたが［日程変更の前に］共有していた候補日が、","en":"The possible dates you had shared before the schedule change"},{"id":388,"tag":"過去完了","jp":"あなたが［会議の前に］整理していた論点が、","en":"The issues you had organised before the meeting"},{"id":389,"tag":"未来予定","jp":"あなたが［明日の面接前に］見直す予定の自己紹介が、","en":"The self-introduction you’re going to review before tomorrow’s interview"},{"id":390,"tag":"未来予定","jp":"あなたが［午後の会議後に］送ってくれる議事録が、","en":"The minutes you’ll send after the afternoon meeting"},{"id":391,"tag":"予定・義務寄り","jp":"あなたが［金曜までに］提出することになっている報告メモが、","en":"The briefing note you’re due to submit by Friday"},{"id":392,"tag":"未来予定","jp":"あなたが［採用担当者の返信後に］更新する予定の候補日が、","en":"The possible dates you’re going to update after the recruiter’s reply"},{"id":393,"tag":"現在完了","jp":"あなたが［ここまでの面接練習を踏まえて］組み直した回答方針が、","en":"The answer strategy you’ve restructured based on the interview practice so far"},{"id":394,"tag":"過去","jp":"あなたが［話の流れを良くするために］入れ替えた順番が、","en":"The order you changed to improve the flow of the story"},{"id":395,"tag":"現在完了","jp":"あなたが［聞き手に伝わりやすいように］短くした説明が、","en":"The explanation you’ve shortened to make it easier for the listener to follow"},{"id":396,"tag":"過去","jp":"あなたが［不自然に聞こえないように］言い換えた一文が、","en":"The sentence you reworded to make it sound more natural"},{"id":397,"tag":"現在完了","jp":"あなたが［実際の会話で使えるように］整えてくれた返答が、","en":"The response you’ve refined for use in a real conversation"},{"id":398,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加した質問項目が、","en":"The questions you added to prevent anything being missed"},{"id":399,"tag":"現在完了","jp":"あなたが［最終確認用に］残してくれたメモが、","en":"The notes you’ve left for final review"},{"id":400,"tag":"直前完了","jp":"あなたが［この面接・調整セットに合わせて］作り直してくれた主語ブロックが、","en":"The subject block you’ve just recreated for this interview and coordination set"},{"id":401,"tag":"現在完了","jp":"あなたが［海外取引先向けに］整えてくれた英文メールが、","en":"The email you’ve refined for the overseas supplier"},{"id":402,"tag":"過去","jp":"あなたが［時差を考慮して］提案した会議時間が、","en":"The meeting time you proposed with the time difference in mind"},{"id":403,"tag":"現在完了","jp":"あなたが［先方の営業時間に合わせて］調整してくれた候補日が、","en":"The possible dates you’ve adjusted to fit their business hours"},{"id":404,"tag":"過去","jp":"あなたが［英国側の担当者に］送った確認メールが、","en":"The confirmation email you sent to the UK contact"},{"id":405,"tag":"現在完了","jp":"あなたが［相手の英語表現に合わせて］言い換えてくれた返信文が、","en":"The reply you’ve rephrased to match their wording"},{"id":406,"tag":"過去","jp":"あなたが［誤解を避けるために］追加した一文が、","en":"The sentence you added to avoid misunderstanding"},{"id":407,"tag":"現在完了","jp":"あなたが［丁寧すぎないように］調整した依頼文が、","en":"The request you’ve adjusted to avoid sounding too formal"},{"id":408,"tag":"過去","jp":"あなたが［やわらかく断るために］書き直した回答が、","en":"The response you rewrote to decline politely"},{"id":409,"tag":"現在完了","jp":"あなたが［先方に判断してもらいやすいように］整理した選択肢が、","en":"The options you’ve organised to make it easier for them to decide"},{"id":410,"tag":"過去","jp":"あなたが［急ぎの依頼として］送ったフォローアップが、","en":"The follow-up you sent as an urgent request"},{"id":411,"tag":"現在完了","jp":"あなたが［海外チーム向けに］短くしてくれた進捗報告が、","en":"The progress update you’ve shortened for the overseas team"},{"id":412,"tag":"過去","jp":"あなたが［現地メンバーに伝わるように］具体化した作業指示が、","en":"The work instructions you made more specific for the local members"},{"id":413,"tag":"現在完了","jp":"あなたが［英語話者にも分かるように］整理した業務手順が、","en":"The workflow you’ve organised so that English speakers can understand it"},{"id":414,"tag":"過去","jp":"あなたが［非ネイティブ向けに］簡単にした説明文が、","en":"The explanation you simplified for non-native speakers"},{"id":415,"tag":"現在完了","jp":"あなたが［海外拠点との共有用に］標準化したフォーマットが、","en":"The format you’ve standardised for sharing with overseas offices"},{"id":416,"tag":"過去","jp":"あなたが［国ごとの運用差を踏まえて］修正した手順書が、","en":"The manual you revised to reflect operational differences between countries"},{"id":417,"tag":"現在完了","jp":"あなたが［現地ルールに合わせて］調整してくれた案内文が、","en":"The guidance text you’ve adjusted to match the local rules"},{"id":418,"tag":"過去","jp":"あなたが［文化的な誤解を避けるために］言い換えた表現が、","en":"The phrase you reworded to avoid cultural misunderstanding"},{"id":419,"tag":"現在完了","jp":"あなたが［相手の立場に］配慮して柔らかくした指摘が、","en":"The comment you’ve softened to take their position into account"},{"id":420,"tag":"過去","jp":"あなたが［国際会議の前に］共有したアジェンダが、","en":"The agenda you shared before the international meeting"},{"id":421,"tag":"現在完了","jp":"あなたが［参加者の地域に合わせて］調整した会議時間が、","en":"The meeting time you’ve adjusted to suit the participants’ regions"},{"id":422,"tag":"過去","jp":"あなたが［英語会議中に］拾った未決事項が、","en":"The open points you captured during the English meeting"},{"id":423,"tag":"現在完了","jp":"あなたが［海外メンバーの発言から］整理した論点が、","en":"The issues you’ve organised from the overseas members’ comments"},{"id":424,"tag":"過去","jp":"あなたが［会議後すぐに］送った英文議事録が、","en":"The minutes you sent straight after the meeting"},{"id":425,"tag":"現在完了","jp":"あなたが［決定事項が明確になるように］直した議事録が、","en":"The minutes you’ve revised to make the decisions clear"},{"id":426,"tag":"過去","jp":"あなたが［担当者ごとに］振り分けた次のアクションが、","en":"The next actions you allocated by owner"},{"id":427,"tag":"現在完了","jp":"あなたが［期限が伝わるように］追記してくれた日付が、","en":"The dates you’ve added to make the deadlines clear"},{"id":428,"tag":"過去","jp":"あなたが［海外チームの確認後に］更新したスケジュールが、","en":"The schedule you updated after checking with the overseas team"},{"id":429,"tag":"現在完了","jp":"あなたが［本社と現地拠点の認識をそろえるために］整理した前提が、","en":"The assumptions you’ve organised to align understanding between headquarters and the local office"},{"id":430,"tag":"過去","jp":"あなたが［現地担当者と確認してから］変更した対応方針が、","en":"The response plan you changed after checking with the local contact"},{"id":431,"tag":"現在完了","jp":"あなたが［海外顧客向けに］書き直したサービス説明が、","en":"The service description you’ve rewritten for overseas clients"},{"id":432,"tag":"過去","jp":"あなたが［英語の提案書に入れるために］選んだ導入事例が、","en":"The case study you selected for the English proposal"},{"id":433,"tag":"現在完了","jp":"あなたが［海外市場向けに］調整した価格説明が、","en":"The pricing explanation you’ve adjusted for overseas markets"},{"id":434,"tag":"過去","jp":"あなたが［現地通貨に合わせて］修正した金額表記が、","en":"The amount notation you revised to match the local currency"},{"id":435,"tag":"現在完了","jp":"あなたが［為替影響を見せるために］追加した参考金額が、","en":"The reference amounts you’ve added to show the foreign exchange impact"},{"id":436,"tag":"過去","jp":"あなたが［海外売上を分けて見るために］整理した地域区分が、","en":"The regional segments you organised to separate overseas sales"},{"id":437,"tag":"現在完了","jp":"あなたが［市場別に］分類してくれた顧客リストが、","en":"The customer list you’ve categorised by market"},{"id":438,"tag":"過去","jp":"あなたが［国別の反応を見るために］比較した問い合わせ件数が、","en":"The enquiry numbers you compared to review the response by country"},{"id":439,"tag":"現在完了","jp":"あなたが［海外キャンペーンの効果を見るために］整理した申込数が、","en":"The application numbers you’ve organised to assess the overseas campaign"},{"id":440,"tag":"過去","jp":"あなたが［現地の祝日を考慮して］修正した配信日程が、","en":"The delivery schedule you revised to take local holidays into account"},{"id":441,"tag":"現在完了","jp":"あなたが［国際物流の遅れを踏まえて］見直した納期が、","en":"The delivery date you’ve reviewed in light of the international shipping delay"},{"id":442,"tag":"過去","jp":"あなたが［通関手続きに合わせて］準備した出荷書類が、","en":"The shipping documents you prepared for the customs process"},{"id":443,"tag":"現在完了","jp":"あなたが［インボイスの内容に合わせて］確認してくれた品目名が、","en":"The item descriptions you’ve checked against the invoice"},{"id":444,"tag":"過去","jp":"あなたが［輸出管理の観点から］確認した取引内容が、","en":"The transaction details you checked from an export control perspective"},{"id":445,"tag":"現在完了","jp":"あなたが［制裁リスト確認のために］整理した取引先情報が、","en":"The counterparty information you’ve organised for sanctions screening"},{"id":446,"tag":"過去","jp":"あなたが［現地規制に照らして］確認した販売条件が、","en":"The sales terms you checked against the local regulations"},{"id":447,"tag":"現在完了","jp":"あなたが［海外契約用に］修正した準拠法条項が、","en":"The governing law clause you’ve revised for the overseas contract"},{"id":448,"tag":"過去","jp":"あなたが［紛争解決条項を確認するために］見直した契約書案が、","en":"The draft contract you reviewed to check the dispute resolution clause"},{"id":449,"tag":"現在完了","jp":"あなたが［支払遅延リスクを下げるために］追加した支払条件が、","en":"The payment terms you’ve added to reduce the risk of late payment"},{"id":450,"tag":"過去","jp":"あなたが［相手方の修正案と］比較して確認した英文契約が、","en":"The English contract you checked against the other party’s revised draft"},{"id":451,"tag":"現在完了","jp":"あなたが［翻訳のずれを確認するために］比較した日本語版と英語版が、","en":"The Japanese and English versions you’ve compared to check for translation differences"},{"id":452,"tag":"過去","jp":"あなたが［意味が変わらないように］修正した英訳が、","en":"The English translation you revised to preserve the meaning"},{"id":453,"tag":"現在完了","jp":"あなたが［直訳っぽさを避けるために］自然にした英文が、","en":"The English wording you’ve made more natural to avoid sounding too literal"},{"id":454,"tag":"過去","jp":"あなたが［法的な意味を残すために慎重に］直した表現が、","en":"The wording you carefully revised to preserve the legal meaning"},{"id":455,"tag":"現在完了","jp":"あなたが［相手に強く聞こえすぎないように］弱めた表現が、","en":"The wording you’ve toned down to avoid sounding too forceful"},{"id":456,"tag":"過去","jp":"あなたが［交渉の余地を残すために］調整した一文が、","en":"The sentence you adjusted to leave room for negotiation"},{"id":457,"tag":"現在完了","jp":"あなたが［こちらの立場を明確にするために］書き足した説明が、","en":"The explanation you’ve added to clarify our position"},{"id":458,"tag":"過去","jp":"あなたが［先方の誤解を解くために］補足した背景説明が、","en":"The background explanation you added to clear up their misunderstanding"},{"id":459,"tag":"現在完了","jp":"あなたが［関係を悪くしないように］言い換えた反論が、","en":"The objection you’ve rephrased to avoid damaging the relationship"},{"id":460,"tag":"過去","jp":"あなたが［合意内容を確認するために］送った英文メールが、","en":"The English email you sent to confirm the agreed points"},{"id":461,"tag":"現在完了","jp":"あなたが［海外候補者向けに］整えた面接案内が、","en":"The interview guidance you’ve refined for overseas candidates"},{"id":462,"tag":"過去","jp":"あなたが［候補者のタイムゾーンに合わせて］調整した面接日程が、","en":"The interview schedule you adjusted to fit the candidate’s time zone"},{"id":463,"tag":"現在完了","jp":"あなたが［英語面接用に］準備してくれた質問項目が、","en":"The interview questions you’ve prepared for the English interview"},{"id":464,"tag":"過去","jp":"あなたが［候補者の回答を踏まえて］整理した評価メモが、","en":"The evaluation notes you organised based on the candidate’s answers"},{"id":465,"tag":"現在完了","jp":"あなたが［採用チーム向けに］まとめてくれた懸念点が、","en":"The concerns you’ve summarised for the hiring team"},{"id":466,"tag":"過去","jp":"あなたが［海外メンバーのオンボーディング用に］作成した資料が、","en":"The materials you prepared for onboarding overseas members"},{"id":467,"tag":"現在完了","jp":"あなたが［多国籍チーム向けに］簡単にした社内ルールが、","en":"The internal rules you’ve simplified for a multinational team"},{"id":468,"tag":"過去","jp":"あなたが［英語で説明しやすいように］整理した業務範囲が、","en":"The scope of work you organised to make it easier to explain in English"},{"id":469,"tag":"現在完了","jp":"あなたが［役割分担を明確にするために］作り直した一覧が、","en":"The responsibility list you’ve recreated to clarify the division of roles"},{"id":470,"tag":"過去","jp":"あなたが［国ごとの担当者を確認するために］更新した連絡先一覧が、","en":"The contact list you updated to confirm the owners by country"},{"id":471,"tag":"現在完了","jp":"あなたが［海外拠点への展開に向けて］整理した導入手順が、","en":"The implementation steps you’ve organised for rollout to overseas offices"},{"id":472,"tag":"過去","jp":"あなたが［現地トレーニング用に］短くした操作説明が、","en":"The operating instructions you shortened for local training"},{"id":473,"tag":"現在完了","jp":"あなたが［国ごとの運用に合わせて］分けた注意事項が、","en":"The notes you’ve separated according to each country’s operations"},{"id":474,"tag":"過去","jp":"あなたが［英語マニュアルに入れるために］選んだ画面例が、","en":"The screen examples you selected for the English manual"},{"id":475,"tag":"現在完了","jp":"あなたが［現地スタッフが迷わないように］追加した補足説明が、","en":"The supplementary explanation you’ve added so that local staff know what to do"},{"id":476,"tag":"過去","jp":"あなたが［海外問い合わせ対応用に］作成した返信テンプレートが、","en":"The response template you prepared for overseas enquiries"},{"id":477,"tag":"現在完了","jp":"あなたが［国際顧客向けに］調整したFAQが、","en":"The FAQ you’ve adjusted for international customers"},{"id":478,"tag":"過去","jp":"あなたが［問い合わせの背景を確認するために］送った質問が、","en":"The questions you sent to confirm the background of the enquiry"},{"id":479,"tag":"現在完了","jp":"あなたが［相手の状況を把握するために］整理した確認事項が、","en":"The points to confirm you’ve organised to understand their situation"},{"id":480,"tag":"過去","jp":"あなたが［時差による返信遅れを考慮して］変更した期限が、","en":"The deadline you changed to allow for delays caused by the time difference"},{"id":481,"tag":"現在進行","jp":"あなたが［今、海外チームと］確認している導入スケジュールが、","en":"The rollout schedule you’re checking with the overseas team now"},{"id":482,"tag":"現在進行","jp":"あなたが［現在、英国側の担当者と］調整している会議日程が、","en":"The meeting schedule you’re currently arranging with the UK contact"},{"id":483,"tag":"現在進行","jp":"あなたが［今週、現地代理店と］詰めている販売条件が、","en":"The sales terms you’re finalising with the local agent this week"},{"id":484,"tag":"現在完了進行","jp":"あなたが［ここ数日、海外拠点と］調整している移行計画が、","en":"The transition plan you’ve been coordinating with the overseas office over the past few days"},{"id":485,"tag":"現在完了進行","jp":"あなたが［今週ずっと］追跡している海外からの未回答問い合わせが、","en":"The outstanding overseas enquiries you’ve been tracking all week"},{"id":486,"tag":"過去完了","jp":"あなたが［国際会議の前にすでに］共有していた説明資料が、","en":"The briefing materials you had already shared before the international meeting"},{"id":487,"tag":"過去完了","jp":"あなたが［先方の方針変更前に］確認していた契約条件が、","en":"The contract terms you had checked before their change in policy"},{"id":488,"tag":"過去完了","jp":"あなたが［出荷遅延の連絡前に］準備していた代替案が、","en":"The alternative plan you had prepared before the shipping delay was reported"},{"id":489,"tag":"未来予定","jp":"あなたが［明日の海外会議前に］送ってくれる論点メモが、","en":"The issue note you’ll send before tomorrow’s international meeting"},{"id":490,"tag":"未来予定","jp":"あなたが［先方の回答後に］更新する予定の契約書案が、","en":"The draft contract you’re going to update after their response"},{"id":491,"tag":"予定・義務寄り","jp":"あなたが［金曜までに］提出することになっている英文レポートが、","en":"The English report you’re due to submit by Friday"},{"id":492,"tag":"未来予定","jp":"あなたが［海外チームの確認後に］差し替える予定の説明資料が、","en":"The briefing materials you’re going to replace after the overseas team’s review"},{"id":493,"tag":"現在完了","jp":"あなたが［ここまでの英語メールの流れを踏まえて］組み直した返信方針が、","en":"The reply strategy you’ve restructured based on the email exchange so far"},{"id":494,"tag":"過去","jp":"あなたが［相手に伝わる順番にするために］入れ替えた段落が、","en":"The paragraphs you reordered to make the message easier for them to follow"},{"id":495,"tag":"現在完了","jp":"あなたが［英語で読みやすくするために］短くした本文が、","en":"The main text you’ve shortened to make it easier to read in English"},{"id":496,"tag":"過去","jp":"あなたが［強すぎる印象を避けるために］言い換えた要求が、","en":"The request you rephrased to avoid sounding too forceful"},{"id":497,"tag":"現在完了","jp":"あなたが［国際業務で再利用できるように］整えてくれた英文テンプレートが、","en":"The English template you’ve refined for reuse in international work"},{"id":498,"tag":"過去","jp":"あなたが［確認漏れを防ぐために］追加した英文チェック項目が、","en":"The English check items you added to prevent anything being missed"},{"id":499,"tag":"現在完了","jp":"あなたが［最終確認用に］残してくれた英文コメントが、","en":"The English comment you’ve left for final review"},{"id":500,"tag":"直前完了","jp":"あなたが［500本ノックの最後に合わせて］作り直してくれた国際業務用の主語ブロックが、","en":"The international business subject block you’ve just recreated for the final part of the 500-drill set"}]</script>
+<script>
+(() => {
+  const DATA = JSON.parse(document.getElementById('drill-data').textContent);
+  const PAGE_SIZE = 50;
+  const pageCount = Math.ceil(DATA.length / PAGE_SIZE);
+  let currentPage = 0;
+  const orders = new Map();
+  const mode = new Map();
+
+  const $tabs = document.getElementById('tabs');
+  const $cards = document.getElementById('cards');
+  const $counter = document.getElementById('counter');
+  const $ascBtn = document.getElementById('ascBtn');
+  const $randBtn = document.getElementById('randBtn');
+  const $flash = document.getElementById('voiceflash');
+
+  let voices = [];
+  function loadVoices() {
+    voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  }
+  if ('speechSynthesis' in window) {
+    loadVoices();
+    speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  function pageLabel(i) {
+    const start = i * PAGE_SIZE + 1;
+    const end = Math.min((i + 1) * PAGE_SIZE, DATA.length);
+    return `${start}-${end}`;
+  }
+
+  function baseItems(page) {
+    const start = page * PAGE_SIZE;
+    return DATA.slice(start, start + PAGE_SIZE);
+  }
+
+  function sortedItems(page) {
+    return baseItems(page).slice().sort((a,b) => a.id - b.id);
+  }
+
+  function shuffledItems(page) {
+    const arr = sortedItems(page);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function setOrder(page, newMode) {
+    if (newMode === 'random') {
+      orders.set(page, shuffledItems(page));
+      mode.set(page, 'random');
+    } else {
+      orders.set(page, sortedItems(page));
+      mode.set(page, 'asc');
+    }
+  }
+
+  function getOrder(page) {
+    if (!orders.has(page)) setOrder(page, 'asc');
+    return orders.get(page);
+  }
+
+  function renderTabs() {
+    $tabs.innerHTML = '';
+    for (let i = 0; i < pageCount; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (i === currentPage ? ' active' : '');
+      btn.type = 'button';
+      btn.textContent = pageLabel(i);
+      btn.addEventListener('click', () => {
+        currentPage = i;
+        render();
+        btn.scrollIntoView({ inline:'center', block:'nearest', behavior:'smooth' });
+      });
+      $tabs.appendChild(btn);
+    }
+  }
+
+  function showFlash(label) {
+    $flash.textContent = label;
+    $flash.classList.add('show');
+    clearTimeout(showFlash._t);
+    showFlash._t = setTimeout(() => $flash.classList.remove('show'), 700);
+  }
+
+  function selectVoice(lang, preferredNames = []) {
+    if (!voices || voices.length === 0) loadVoices();
+    const norm = x => String(x || '').toLowerCase();
+    const exact = voices.filter(v => norm(v.lang) === norm(lang));
+    const loose = voices.filter(v => norm(v.lang).startsWith(lang.slice(0,2).toLowerCase()));
+    const pool = exact.length ? exact : loose;
+
+    // Browser voices do not expose gender reliably, so we prioritise common male voice names.
+    const maleHints = preferredNames.concat([
+      'daniel','oliver','arthur','george','harry','ryan','thomas','fred','alex',
+      'rishi','ravi','raj','aarav','amit','kunal','sanjay','male'
+    ]).map(norm);
+
+    const malePreferred = pool.find(v => maleHints.some(h => norm(v.name).includes(h)));
+    if (malePreferred) return malePreferred;
+    return pool[0] || null;
+  }
+
+  function speak(text, accent) {
+    if (!('speechSynthesis' in window)) {
+      showFlash('この端末は音声再生に未対応です');
+      return;
+    }
+    const config = {
+      gb: { lang:'en-GB', label:'UK male / en-GB', rate:0.96, preferred:['daniel','oliver','arthur','george','harry'] },
+      in: { lang:'en-IN', label:'India male / en-IN', rate:1.16, preferred:['rishi','ravi','raj','aarav','amit','kunal'] },
+      us: { lang:'en-US', label:'US / en-US', rate:1.12, preferred:['samantha','ava','allison','tom','alex'] }
+    }[accent];
+
+    speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = config.lang;
+    utter.rate = config.rate;
+    utter.pitch = 1;
+    utter.voice = selectVoice(config.lang, config.preferred || []);
+    speechSynthesis.speak(utter);
+    showFlash(config.label);
+  }
+
+
+  function highlightBrackets(text) {
+    return escapeHtml(text).replace(/［([^］]+)］/g, '<span class="bracket">［$1］</span>');
+  }
+
+  function makeCard(item) {
+    const card = document.createElement('article');
+    card.className = 'card';
+
+    const hold = document.createElement('button');
+    hold.className = 'hold';
+    hold.type = 'button';
+    hold.textContent = '○';
+    hold.setAttribute('aria-label', '英語を表示');
+
+    const content = document.createElement('div');
+    content.className = 'content';
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.innerHTML = `<span class="badge">${String(item.id).padStart(3,'0')}</span><span>${escapeHtml(item.tag)}</span>`;
+
+    const jp = document.createElement('div');
+    jp.className = 'jp';
+    jp.innerHTML = highlightBrackets(item.jp);
+
+    const en = document.createElement('div');
+    en.className = 'en';
+    en.textContent = item.en;
+
+    content.appendChild(meta);
+    content.appendChild(jp);
+    content.appendChild(en);
+
+    const zones = document.createElement('div');
+    zones.className = 'zones';
+    const accents = ['gb','in','us'];
+    accents.forEach(acc => {
+      const z = document.createElement('button');
+      z.className = 'zone';
+      z.type = 'button';
+      z.setAttribute('aria-label', acc === 'gb' ? 'イギリス英語で再生' : acc === 'in' ? 'インド英語で再生' : 'アメリカ英語で再生');
+      z.addEventListener('click', (e) => {
+        e.preventDefault();
+        speak(item.en, acc);
+      });
+      zones.appendChild(z);
+    });
+
+    const revealOn = (e) => {
+      e.preventDefault();
+      card.classList.add('reveal');
+      hold.classList.add('on');
+    };
+    const revealOff = () => {
+      card.classList.remove('reveal');
+      hold.classList.remove('on');
+    };
+
+    hold.addEventListener('pointerdown', revealOn);
+    hold.addEventListener('pointerup', revealOff);
+    hold.addEventListener('pointercancel', revealOff);
+    hold.addEventListener('pointerleave', revealOff);
+    hold.addEventListener('contextmenu', e => e.preventDefault());
+
+    card.appendChild(hold);
+    card.appendChild(content);
+    card.appendChild(zones);
+    return card;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+
+  function renderCards() {
+    const items = getOrder(currentPage);
+    $cards.innerHTML = '';
+    if (!items.length) {
+      $cards.innerHTML = '<div class="empty">カードがありません</div>';
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    items.forEach(item => frag.appendChild(makeCard(item)));
+    $cards.appendChild(frag);
+  }
+
+  function updateControls() {
+    const m = mode.get(currentPage) || 'asc';
+    $ascBtn.classList.toggle('active', m === 'asc');
+    $randBtn.classList.toggle('active', m === 'random');
+    const start = currentPage * PAGE_SIZE + 1;
+    const end = Math.min((currentPage + 1) * PAGE_SIZE, DATA.length);
+    $counter.textContent = `${start}–${end} / ${DATA.length}`;
+  }
+
+  function render() {
+    renderTabs();
+    updateControls();
+    renderCards();
+  }
+
+  $ascBtn.addEventListener('click', () => {
+    setOrder(currentPage, 'asc');
+    render();
+  });
+  $randBtn.addEventListener('click', () => {
+    setOrder(currentPage, 'random');
+    render();
+  });
+
+  render();
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
