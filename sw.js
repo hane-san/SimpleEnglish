@@ -1,4 +1,4 @@
-const CACHE = 'frog-english-subject-drill-v3';
+const CACHE = 'frog-english-subject-drill-v4';
 const ASSETS = [
   './',
   './index.html',
