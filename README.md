@@ -1,21 +1,30 @@
-# Frog English Subject Drill 500
+# SimpleEnglish / Frog English Subject Drill 500
 
-Business English subject-block drill app.
+Manual upload package for GitHub Pages.
 
-Live URL: https://hane-san.github.io/SimpleEnglish/
+## Upload
 
-## Update notes
+Upload every file in this folder to the repository root:
 
-- Slightly increased Japanese and English font sizes while keeping the compact card layout.
-- Adjusted voice playback rates: Indian English is only very slightly faster, and American English is slower/more natural.
-- UK and Indian English still prioritise male voices when the device/browser provides them.
-- Updated the offline cache version so GitHub Pages users get the refreshed files.
+- `index.html`
+- `manifest.webmanifest`
+- `sw.js`
+- `icon.png`
+- `icon-192.png`
+- `icon-512.png`
+- `apple-touch-icon.png`
+- `.nojekyll`
 
-## Files
+Then set GitHub Pages to:
 
-- `index.html` — main app
-- `icon.png`, `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` — app icons
-- `manifest.webmanifest` — PWA metadata
-- `sw.js` — simple offline cache and compatibility patch for GitHub Pages
+- Source: Deploy from a branch
+- Branch: `main`
+- Folder: `/ (root)`
 
-Voice playback depends on the browser/device voices installed on the user’s phone or computer.
+No build step is required. The app is a static single-page HTML app.
+
+## Notes
+
+- The 500 drill items are embedded in `index.html`.
+- Voice playback depends on the voices installed in the browser/device.
+- `sw.js` uses a new cache name and network-first behaviour to avoid old cached versions remaining stuck.
